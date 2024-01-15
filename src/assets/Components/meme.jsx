@@ -5,6 +5,7 @@ const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
+
   const [memeImage, setMemeImage] = useState("");
   const [error, setError] = useState(null); 
 
@@ -21,6 +22,7 @@ const Meme = () => {
       } catch (error) {
         setError(error.message) // error.message is a property of the error object that contains the error message corresponding to the error code.
       }
+
     }
     fetchData();
   }, []);
@@ -34,6 +36,7 @@ const Meme = () => {
 
   if (error) {
     return <div>Error: {error}</div> // it calls the variable error from the useEffect hook, which contains the error message corresponding to the error code.
+
   }
 
   return (
@@ -44,6 +47,7 @@ const Meme = () => {
         value={topText}
         onChange={(e) => setTopText(e.target.value)}
       /> <br />
+
       <input
         type="text"
         placeholder="Bottom Text"
@@ -51,6 +55,7 @@ const Meme = () => {
         onChange={(e) => setBottomText(e.target.value)} 
       /> <br />
       <OnclickMessage memeImage={memeImage} />
+
     </div>
   );
 };
