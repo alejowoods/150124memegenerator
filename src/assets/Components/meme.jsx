@@ -13,6 +13,16 @@ const MemeFactory = () => {
   const handleClick = (meme) => {
     setSelectedMeme(meme);
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+    </div>
+  );
+
 };
 
 export default meme;
