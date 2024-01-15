@@ -1,34 +1,35 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from "react";
+    
+const [allMemes, setAllMemes] = useState([]);
 
-const meme = () => {
-  const [memes, setMemes] = useState([]);
-  const [currentMeme, setCurrentMeme] = useState(null);
-  const [error, setError] = useState(null);
+    React.useEffect(() => {
+        async function fetchData() {
+          const res = await fetch("https://api.imgflip.com/");
+          const data = await res.json();
+          setAllMemes(data.data.memes);
+        }
+        fetchData();
+      }, []);
 
-  useEffect(() => {
-    fetch('https://api.imgflip.com/get_memes')
-      .then(response => response.json())
-      .then(data => {
-        setMemes(data.data.memes);
-        setCurrentMeme(data.data.memes[0]);
-      })
-      .catch(error => setError(error.toString()));
-  }, []);
+      function getMemeImage() {
+        var meme1 = allMemes;
+        meme1 = meme1[Math.floor(Math.random() * meme1.length)];
+        meme1 = meme1.url;
+        return meme1;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+      }
+    
+      const [memeImage, setmemeImage] = useState({
+        topText: "",
+        bottomText: "",
+        image: "http://i.imgflip.com/1bij.jpg",
+      });
 
-  return (
-    <div>
-      {currentMeme && (
-        <div>
-          <h2>{currentMeme.name}</h2>
-          <img src={currentMeme.url} alt={currentMeme.name} />
-        </div>
-      )}
-    </div>
-  );
-};
+      function getMemeImage() {
+        var meme1 = allMemes;
+        meme1 = meme1[Math.floor(Math.random() * meme1.length)];
+        meme1 = meme1.url;
+        return meme1;
+      }
 
 export default meme;
