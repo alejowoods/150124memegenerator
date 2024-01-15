@@ -5,6 +5,24 @@
   text-align: center;
 }
 
+.meme-image {
+  position: relative;
+}
+
+.meme-text {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.meme-text-bottom {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
