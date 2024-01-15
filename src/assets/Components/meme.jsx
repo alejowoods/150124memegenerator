@@ -1,18 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MemeFactory = () => {
   const [memes, setMemes] = useState([]);
-  const [selectedMeme, setSelectedMeme] = useState(null);
+  const [currentMeme, setCurrentMeme] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch('https://api.imgflip.com/get_memes')
       .then(response => response.json())
-      .then(data => setMemes(data.data.memes));
+      .then(data => {
+        setMemes(data.data.memes);
+        setCurrentMeme(data.data.memes[0]);
+      })
+      .catch(error => setError(error.toString()));
   }, []);
-
-  const handleClick = (meme) => {
-    setSelectedMeme(meme);
-  };
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -20,9 +21,14 @@ const MemeFactory = () => {
 
   return (
     <div>
+      {currentMeme && (
+        <div>
+          <h2>{currentMeme.name}</h2>
+          <img src={currentMeme.url} alt={currentMeme.name} />
+        </div>
+      )}
     </div>
   );
-
 };
 
-export default meme;
+export default MemeFactory;
