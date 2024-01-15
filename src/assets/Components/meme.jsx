@@ -1,35 +1,50 @@
-import React, { useState } from "react";
-    
-const [allMemes, setAllMemes] = useState([]);
+import React, { useState, useEffect } from "react";
 
-    React.useEffect(() => {
-        async function fetchData() {
-          const res = await fetch("https://api.imgflip.com/");
-          const data = await res.json();
-          setAllMemes(data.data.memes);
-        }
-        fetchData();
-      }, []);
+const Meme = () => {
+  const [allMemes, setAllMemes] = useState([]);
+  const [topText, setTopText] = useState("");
+  const [bottomText, setBottomText] = useState("");
 
-      function getMemeImage() {
-        var meme1 = allMemes;
-        meme1 = meme1[Math.floor(Math.random() * meme1.length)];
-        meme1 = meme1.url;
-        return meme1;
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("https://api.imgflip.com");
+      const data = await res.json();
+      setAllMemes(data.data.memes);
+    }
+    fetchData();
+  }, []);
 
-      }
-    
-      const [memeImage, setmemeImage] = useState({
-        topText: "",
-        bottomText: "",
-        image: "http://i.imgflip.com/1bij.jpg",
-      });
+  function getMemeImage() {
+    if (allMemes.length === 0) return "";
+    const meme = allMemes[Math.floor(Math.random() * allMemes.length)];
+    return meme.url;
+  }
 
-      function getMemeImage() {
-        var meme1 = allMemes;
-        meme1 = meme1[Math.floor(Math.random() * meme1.length)];
-        meme1 = meme1.url;
-        return meme1;
-      }
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Top Text"
+        value={topText}
+        onChange={(e) => setTopText(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Bottom Text"
+        value={bottomText}
+        onChange={(e) => setBottomText(e.target.value)}
+      />
+      <div style={{ position: "relative", textAlign: "center" }}>
+        <img src={getMemeImage()} alt="Random Meme" />
+        <h2 style={{ position: "absolute", top: "10px", width: "100%" }}>
+          {topText}
+        </h2>
+        <h2 style={{ position: "absolute", bottom: "10px", width: "100%" }}>
+          {bottomText}
+        </h2>
+      </div>
+    </div>
+  );
+};
 
-export default meme;
+export default Meme;
