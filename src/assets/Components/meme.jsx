@@ -3,9 +3,6 @@ import OnclickMessage from './OnClickMessage';
 
 const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
-  const [topText, setTopText] = useState("");
-  const [bottomText, setBottomText] = useState("");
-
   const [memeImage, setMemeImage] = useState("");
   const [error, setError] = useState(null); 
 
@@ -41,19 +38,7 @@ const Meme = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Top Text"
-        value={topText}
-        onChange={(e) => setTopText(e.target.value)}
-      /> <br />
 
-      <input
-        type="text"
-        placeholder="Bottom Text"
-        value={bottomText}
-        onChange={(e) => setBottomText(e.target.value)} 
-      /> <br />
       <OnclickMessage memeImage={memeImage} />
 
     </div>
