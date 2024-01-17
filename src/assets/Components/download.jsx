@@ -1,33 +1,31 @@
-/* import { useState, useRef } from "react";
+import { useRef } from "react";
 import html2canvas from "html2canvas";
 
-function Download() {
-  const [allMemes, setAllMemes] = useState([]);
-  const [currentMemeIndex, setCurrentMemeIndex] = useState(0);
-  const memeRef = useRef();
+import PropTypes from "prop-types";
 
-  if (allMemes.length === 0) return null;
+function Download({ memeRef }) {
+  const downloadRef = useRef();
 
-  const currentMeme = allMemes[currentMemeIndex];
-
-  const downloadMeme = () => {
-    html2canvas(memeRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.download = "meme.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    });
-  };  
+  const handleDownload = async (event) => {
+    event.preventDefault();
+    const canvas = await html2canvas(memeRef.current);
+    const imgURL = canvas.toDataURL("image/png");
+    downloadRef.current.href = imgURL;
+    downloadRef.current.download = "meme.png";
+    downloadRef.current.click();
+  };
 
   return (
-    <div>
-      <div ref={memeRef}>
-        <img src={currentMeme.url} alt="Current Meme" />
-      </div>
-      <button onClick={downloadMeme}>Download Meme</button>
-    </div>
+    <>
+      <a ref={downloadRef} download="meme.png">
+        <button onClick={handleDownload}>Download Meme</button>
+      </a>
+    </>
   );
-  
 }
 
-export default Download; */
+Download.propTypes = {
+  memeRef: PropTypes.object.isRequired,
+};
+
+export default Download;

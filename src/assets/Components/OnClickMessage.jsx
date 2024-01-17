@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const onClickMessage = ({ memeImage }) => {
+const OnClickMessage = ({ memeImage }) => {
     const [typeText, setTypeText] = useState(["", "", "", ""]);
     const [clickPositions, setClickPositions] = useState([]);
     
@@ -43,4 +43,4 @@ const onClickMessage = ({ memeImage }) => {
     );
 };
 
-export default onClickMessage;
+export default OnClickMessage;
