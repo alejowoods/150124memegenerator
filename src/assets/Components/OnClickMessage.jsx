@@ -3,14 +3,22 @@ import React, { useState, useEffect } from "react";
 const onClickMessage = ({ memeImage }) => {
     const [typeText, setTypeText] = useState(["", "", "", ""]);
     const [clickPositions, setClickPositions] = useState([]);
+    const [fontColor, setFontColor] = useState("black");
     
+   /*  const handleClickFontColor = () => {
+        if (fontColor === "black")
+    };  */
 
     const handleClick = (event) => {
         if (clickPositions.length < 4) {
             const rect = event.target.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            if (x + 200 > rect.width) x = rect.width - 200; 
+            if (y + 20 > rect.height) y = rect.height - 20;
             setClickPositions([...clickPositions, { 
-                x: `${event.clientX - rect.left}px`, 
-                y: `${event.clientY - rect.top}px` 
+                x: `${x}px`, 
+                y: `${y}px` 
             }]);
         }
     };
@@ -25,7 +33,7 @@ const onClickMessage = ({ memeImage }) => {
     return (
         <>
             <div>
-                <button onClick={() => setClickPositions([])}>Reset</button>
+                <button onClick={() => {setClickPositions([]); setTypeText([]);}}>Reset</button>
             </div>
             <div className="memeContainer" onClick={handleClick}>
                 <img src={memeImage} alt="Meme" />
