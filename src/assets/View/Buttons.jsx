@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Meme from "../Components/meme";
+import { useState , useEffect } from "react";
 
-const Buttons = () => {
-  const [allMemes, setAllMemes] = useState([]);
+function Buttons() {
   const [currentMemeIndex, setCurrentMemeIndex] = useState(0);
 
-  const nextMeme = () => {
-    setCurrentMemeIndex((prevIndex) => (prevIndex + 1) % allMemes.length);
-  };
-
   const prevMeme = () => {
-    setCurrentMemeIndex((prevIndex) =>
-      prevIndex === 0 ? allMemes.length - 1 : prevIndex - 1
-    );
+    setCurrentMemeIndex((oldIndex) => (oldIndex > 0 ? oldIndex - 1 : oldIndex));
   };
 
-  if (allMemes.length === 0) return null;
-
-  const currentMeme = allMemes[currentMemeIndex];
+  const nextMeme = () => {
+    setCurrentMemeIndex((oldIndex) => oldIndex + 1);
+  };
 
   return (
     <div>
-      <Meme meme={currentMeme} />
       <button onClick={prevMeme}>Previous Meme</button>
-      <button onClick={nextMeme}>MORE!</button>
+      <button onClick={nextMeme}>Next Meme</button>
     </div>
   );
-};
+}
 
 export default Buttons;

@@ -1,48 +1,37 @@
-import React, { useState, useEffect } from "react";
-import OnclickMessage from './OnClickMessage';
+import { useState, useEffect } from "react";
 
-const Meme = () => {
+function Meme() {
   const [allMemes, setAllMemes] = useState([]);
-  const [memeImage, setMemeImage] = useState("");
-  const [error, setError] = useState(null); 
+  const [currentMemeIndex, setCurrentMemeIndex] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const res = await fetch("https://api.imgflip.com/get_memes");
-        if(!res.ok) {
-          throw Error(res.statusText); // statusText is a property of the response object that contains the error message corresponding to the status code.
-        }
-        const data = await res.json();
-        console.log(data); 
-        setAllMemes(data.data.memes);
-      } catch (error) {
-        setError(error.message) // error.message is a property of the error object that contains the error message corresponding to the error code.
-      }
-
+      const res = await fetch("https://api.imgflip.com/get_memes");
+      const data = await res.json();
+      setAllMemes(data.data.memes);
     }
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (allMemes.length > 0) {
-      const meme = allMemes[Math.floor(Math.random() * allMemes.length)];
-      setMemeImage(meme.url);
-    }
-  }, [allMemes]);
+  const prevMeme = () => {
+    setCurrentMemeIndex((oldIndex) => (oldIndex > 0 ? oldIndex - 1 : oldIndex));
+  };
 
-  if (error) {
-    return <div>Error: {error}</div> // it calls the variable error from the useEffect hook, which contains the error message corresponding to the error code.
+  const nextMeme = () => {
+    setCurrentMemeIndex((oldIndex) => oldIndex + 1);
+  };
 
-  }
+  if (allMemes.length === 0) return null;
+
+  const currentMeme = allMemes[currentMemeIndex];
 
   return (
     <div>
-
-      <OnclickMessage memeImage={memeImage} />
-
+      <img src={currentMeme.url} alt="Current Meme" />
+      <button onClick={prevMeme}>Previous Meme</button>
+      <button onClick={nextMeme}>Next Meme</button>
     </div>
   );
-};
+}
 
 export default Meme;

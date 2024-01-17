@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function UploadPic() {
     const [image, setImage] = useState(null);
@@ -12,13 +12,13 @@ function UploadPic() {
     return (
         <div>
             <div>
-                <input type="file" accept="image/*" onChange={handleUploadImage}/> // image/* means that the input accepts all image types
+                <input type="file" accept="image/*" onChange={handleUploadImage}/> {/* // image/* means that the input accepts all image types */}
             </div>
             <div>
             {image && <img src={image} alt="Uploaded" style={{marginTop: '20px'}}/>}
             </div>
         </div>
     )
-};
+}
 
 export default UploadPic;

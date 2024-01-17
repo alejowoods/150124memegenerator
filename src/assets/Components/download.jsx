@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from "react";
+/* import { useState, useRef } from "react";
+import html2canvas from "html2canvas";
 
 function Download() {
   const [allMemes, setAllMemes] = useState([]);
   const [currentMemeIndex, setCurrentMemeIndex] = useState(0);
-
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://api.imgflip.com/get_memes");
-      const data = await res.json();
-      setAllMemes(data.data.memes);
-    }
-    fetchData();
-  }, []);
+  const memeRef = useRef();
 
   if (allMemes.length === 0) return null;
 
   const currentMeme = allMemes[currentMemeIndex];
 
+  const downloadMeme = () => {
+    html2canvas(memeRef.current).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = "meme.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  };  
+
   return (
     <div>
-      <a href={currentMeme.url} download>
-        <button>Download</button>
-      </a>
+      <div ref={memeRef}>
+        <img src={currentMeme.url} alt="Current Meme" />
+      </div>
+      <button onClick={downloadMeme}>Download Meme</button>
     </div>
   );
+  
 }
 
-export default Download;
+export default Download; */

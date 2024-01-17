@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import './App.css'
 import UploadPic from './UploadPic'
-import Meme from './assets/Components/meme'; 
-
+import Meme from './assets/Components/Meme';  
+import Download from './assets/Components/Download';
 
 function App() {
   
@@ -18,6 +17,9 @@ function App() {
       </div>
       <div>
         <UploadPic />
+      </div>
+      <div>
+        <Download />
       </div>
     </>
   )
