@@ -1,48 +1,46 @@
 import React, { useState, useEffect } from "react";
+import OnclickMessage from './OnClickMessage';
 
 const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
-  const [topText, setTopText] = useState("");
-  const [bottomText, setBottomText] = useState("");
+  const [memeImage, setMemeImage] = useState("");
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch("https://api.imgflip.com");
-      const data = await res.json();
-      setAllMemes(data.data.memes);
+      try {
+        const res = await fetch("https://api.imgflip.com/get_memes");
+        if(!res.ok) {
+          throw Error(res.statusText); // statusText is a property of the response object that contains the error message corresponding to the status code.
+        }
+        const data = await res.json();
+        console.log(data); 
+        setAllMemes(data.data.memes);
+      } catch (error) {
+        setError(error.message) // error.message is a property of the error object that contains the error message corresponding to the error code.
+      }
+
     }
     fetchData();
   }, []);
 
-  function getMemeImage() {
-    if (allMemes.length === 0) return "";
-    const meme = allMemes[Math.floor(Math.random() * allMemes.length)];
-    return meme.url;
+  useEffect(() => {
+    if (allMemes.length > 0) {
+      const meme = allMemes[Math.floor(Math.random() * allMemes.length)];
+      setMemeImage(meme.url);
+    }
+  }, [allMemes]);
+
+  if (error) {
+    return <div>Error: {error}</div> // it calls the variable error from the useEffect hook, which contains the error message corresponding to the error code.
+
   }
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Top Text"
-        value={topText}
-        onChange={(e) => setTopText(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Bottom Text"
-        value={bottomText}
-        onChange={(e) => setBottomText(e.target.value)}
-      />
-      <div style={{ position: "relative", textAlign: "center" }}>
-        <img src={getMemeImage()} alt="Random Meme" />
-        <h2 style={{ position: "absolute", top: "10px", width: "100%" }}>
-          {topText}
-        </h2>
-        <h2 style={{ position: "absolute", bottom: "10px", width: "100%" }}>
-          {bottomText}
-        </h2>
-      </div>
+
+      <OnclickMessage memeImage={memeImage} />
+
     </div>
   );
 };
