@@ -16,7 +16,7 @@
 
 .text-field {
   position: absolute;
-  background-color: transparent; /* This makes the text field transparent */
+  background-color: white; /* This makes the text field transparent */
 }
 
 .logo {

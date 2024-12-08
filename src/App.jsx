@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import UploadPic from './UploadPic'
 import Meme from './assets/Components/meme'; 

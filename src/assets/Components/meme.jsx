@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OnclickMessage from './OnClickMessage';
+import '../Styles/meme.css'; 
 
 const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
