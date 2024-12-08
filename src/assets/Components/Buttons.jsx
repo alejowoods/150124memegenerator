@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Meme from "../Components/meme";
+import Meme from "./meme";
 
 const Buttons = () => {
   const [allMemes, setAllMemes] = useState([]);
