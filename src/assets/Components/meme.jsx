@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import OnclickMessage from './OnClickMessage';
 import '../Styles/meme.css'; 
 
+
 const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
   const [memeImage, setMemeImage] = useState("");
@@ -38,7 +39,8 @@ const Meme = () => {
   }
 
   return (
-    <div>
+    <div className="meme-image">
+      <img src={memeImage} alt="Meme" />
 
       <OnclickMessage memeImage={memeImage} />
 
