@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import OnclickMessage from './OnClickMessage';
+import OnClickMessage from './OnClickMessage';
+import UploadPic from './UploadPic';
 import '../Styles/meme.css'; 
 
 
@@ -7,44 +8,58 @@ const Meme = () => {
   const [allMemes, setAllMemes] = useState([]);
   const [memeImage, setMemeImage] = useState("");
   const [error, setError] = useState(null); 
+  const [uploadedImage, setUploadedImage] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await fetch("https://api.imgflip.com/get_memes");
         if(!res.ok) {
-          throw Error(res.statusText); // statusText is a property of the response object that contains the error message corresponding to the status code.
+          throw Error(res.statusText); 
         }
         const data = await res.json();
         console.log(data); 
         setAllMemes(data.data.memes);
       } catch (error) {
-        setError(error.message) // error.message is a property of the error object that contains the error message corresponding to the error code.
+        setError(error.message) 
+      } finally {
+        console.log("Petttion finished");
       }
 
     }
-    fetchData();
-  }, []);
+    fetchData(); 
+  }, []); 
 
-  useEffect(() => {
-    if (allMemes.length > 0) {
+  useEffect(() => { 
+    if (Array.isArray(allMemes) && allMemes.length > 0 && !uploadedImage) {
       const meme = allMemes[Math.floor(Math.random() * allMemes.length)];
-      setMemeImage(meme.url);
+      setMemeImage(meme.url); 
     }
-  }, [allMemes]);
+  }, [allMemes, uploadedImage]); // necesitamos las dos dependencias para que se ejecute el useEffect cuando cambie allMemes o uploadedImage
 
   if (error) {
-    return <div>Error: {error}</div> // it calls the variable error from the useEffect hook, which contains the error message corresponding to the error code.
+    return <div>Error: {error}</div> 
 
   }
 
   return (
-    <div className="meme-image">
-      <img src={memeImage} alt="Meme" />
 
-      <OnclickMessage memeImage={memeImage} />
-
+    <div>
+      {error && <p>{error}</p>}
+      {uploadedImage ? (
+        <div className="meme-image">
+          <img src={uploadedImage} alt="Uploaded Meme" />
+          <OnClickMessage memeImage={uploadedImage} />
+        </div>
+      ) : (
+        Array.isArray(allMemes) && allMemes.length > 0 && (
+          <div className="meme-image" >
+            <OnClickMessage memeImage={memeImage} />
+          </div>
+        )
+      )}
     </div>
+
   );
 };
 
