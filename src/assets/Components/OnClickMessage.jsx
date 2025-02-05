@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const onClickMessage = ({ memeImage }) => {
+const OnClickMessage = ({ memeImage }) => {
     const [typeText, setTypeText] = useState(["", "", "", ""]);
     const [clickPositions, setClickPositions] = useState([]);
     const [fontColor, setFontColor] = useState("black");
     
-   /*  const handleClickFontColor = () => {
-        if (fontColor === "black")
-    };  */
 
     const handleClick = (event) => {
         if (clickPositions.length < 4) {
-            const rect = event.target.getBoundingClientRect();
-            let x = event.clientX - rect.left;
+            const rect = event.target.getBoundingClientRect(); // getBoundingClientRect() es un método que devuelve el tamaño de un elemento y su posición relativa respecto a la ventana gráfica.
+            let x = event.clientX - rect.left; 
             let y = event.clientY - rect.top;
-            if (x + 200 > rect.width) x = rect.width - 200; 
+            if (x + 200 > rect.width) x = rect.width - 200;   
             if (y + 20 > rect.height) y = rect.height - 20;
             setClickPositions([...clickPositions, { 
                 x: `${x}px`, 
@@ -51,4 +48,4 @@ const onClickMessage = ({ memeImage }) => {
     );
 };
 
-export default onClickMessage;
+export default OnClickMessage;
