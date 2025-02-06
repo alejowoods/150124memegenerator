@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import Start from './assets/Components/start';
-import UploadPic from './assets/Components/UploadPic';
 import Meme from './assets/Components/Meme'; 
 import './App.css'
 
 
+
 function App() {
-  const [uploadedImage, setUploadedImage] = useState(null);
+
   
   return (
     <>
@@ -18,7 +17,6 @@ function App() {
           <Meme />
       </div>
       <div>
-        <UploadPic />
       </div>
     </>
   )
