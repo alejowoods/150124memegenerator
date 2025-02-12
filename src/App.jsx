@@ -1,6 +1,9 @@
-import Start from './assets/Components/start';
+import React from 'react';
+import Header from './assets/Components/Header';
 import Meme from './assets/Components/Meme'; 
 import './App.css'
+import Footer from './assets/Components/Footer';
+
 
 
 
@@ -8,17 +11,13 @@ function App() {
 
   
   return (
-    <>
-      <div>
-        <h2>AleMore: Meme Generator</h2>    
+    <div id="root">
+        <Header />
+      <div className="main-content">
+        <Meme />
       </div>
-      <div>
-          <Start />
-          <Meme />
-      </div>
-      <div>
-      </div>
-    </>
+      <Footer />
+    </div>
   )
 }
 
