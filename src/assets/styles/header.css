@@ -1,15 +1,30 @@
 .header-container {
     width: 100%;
     padding: 20px;
-    background-color: #007bff; /* Azul, similar a botones */
+    background-color: #007bff; 
     color: white;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1; /* Lo mantiene por encima */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0 !important;
+
+
 }
 
 .header-title {
@@ -27,5 +42,30 @@
     .header-container {
         font-size: 1.5rem;
         padding: 15px;
+        height: 130px;
+    }
+
+    .header-title {
+        margin: 0;
+        padding: 10px;
+        font-size: 1.5rem;
+        white-space: wrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
+
+    .header-subtitle {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: normal;
+    }
+
+
+    
+}
+
+@media (max-width: 409px) {
+    .header-container {
+        height: 110px; /* Ajuste para móviles pequeños */
     }
 }
