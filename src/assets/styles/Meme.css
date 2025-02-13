@@ -5,11 +5,10 @@
     justify-content: center;
     width: 100%;
     margin: auto;
-    padding: 20px;
+    padding: 40px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-
 }
 .controls-container {
     display: flex;
