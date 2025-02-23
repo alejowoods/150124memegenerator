@@ -10,7 +10,6 @@
     flex-wrap: nowrap;
     overflow: hidden;
     overflow-x: hidden;
-    display: flex;
     align-items: center;
     padding: 10px;
     height: 150px;
@@ -43,11 +42,14 @@
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
+    position: relative;
+    z-index: 1;
 }
 
 .thumbnail:hover {
-    transform: scale(1.4);
+    transform: scale(1.1);
     border: 2px solid #ff9800;
+    z-index: 2;
 }
 
 .carousel-arrow {
